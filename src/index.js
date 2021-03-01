@@ -56,18 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target.className === "like-btn") {
       const cardDiv = event.target.closest('div')
       const id = cardDiv.dataset.id
-      const pTag = event.target.closest("pTag")
+      const pTag = cardDiv.querySelector('p')
       const currLikes = parseInt(pTag.textContent)
+      const newLikes = currLikes + 1
       fetch(`http://localhost:3000/toys/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json"
         },
-      body: JSON.stringify({
-          "likes": `"${currLikes + 1}"`
-        })
+      body: JSON.stringify({likes: newLikes})
       })
+      pTag.textContent = `${currLikes + 1} Likes`
   }
   })
 
